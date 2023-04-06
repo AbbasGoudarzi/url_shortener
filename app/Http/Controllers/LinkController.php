@@ -6,17 +6,22 @@ use App\Http\Requests\LinkRequest;
 use App\Http\Resources\LinkCollection;
 use App\Http\Resources\LinkResource;
 use App\Models\Link;
+use App\Services\LinkService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class LinkController extends Controller
 {
+    public function __construct(protected LinkService $service)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $links = Link::all();
+        $links = $this->service->getLinks();
         return Response::success('Links list', ['links' => new LinkCollection($links)]);
 //        return Response::success('Links list', ['links' => LinkResource::collection($links)]);
     }
@@ -26,21 +31,17 @@ class LinkController extends Controller
      */
     public function store(LinkRequest $request)
     {
-        $link = new Link($request->validated());
-        $link->save();
-        $link->refresh();
+        $link = $this->service->storeLink($request->validated());
         return Response::success('Link created', ['link' => new LinkResource($link)]);
     }
 
     public function redirect(Link $link)
     {
-        $today = now()->format('Y-m-d');
+        if($this->service->isExpired($link))
+            abort(422, 'Your link is Expired!');
 
-        if($link->expire_at < $today)
-            abort(422, 'Your Code is Expired!');
+        $this->service->handleUsage($link);
 
-        $link->usage_count++;
-        $link->save();
         return redirect()->away($link->target_url);
     }
 }
