@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "0438feb7-3018-4893-897a-80f29791ca71",
+		"name": "Url Shortener",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9157662"
+	},
+	"item": [
+		{
+			"name": "Store Link",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "You tube",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "yt",
+							"type": "text"
+						},
+						{
+							"key": "target_url",
+							"value": "https://www.youtube.com/",
+							"type": "text"
+						},
+						{
+							"key": "expire_at",
+							"value": "2023-04-06",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/links/store",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"links",
+						"store"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Store Link",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Google",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "g1",
+									"type": "text"
+								},
+								{
+									"key": "target_url",
+									"value": "https://www.google.com/",
+									"type": "text"
+								},
+								{
+									"key": "expire_at",
+									"value": "2023-04-10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/links/store",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"links",
+								"store"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Get Links List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/links",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"links"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
